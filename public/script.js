@@ -1,5 +1,5 @@
 async function fetchConfig() {
-    const res = await fetch('http://localhost:3000/config');
+    const res = await fetch('http://ols-svc-talkgpt.svc.gke-main.ols.blast.co.id:3000/config');
     return await res.json();
 }
 
@@ -43,7 +43,7 @@ function startRecording() {
             formData.append('audio_file', audioBlob, 'audio.wav');
 
             try {
-                const response = await fetch('http://localhost:8000/transcribe', {
+                const response = await fetch('http://ols-svc-transcribegpt.svc.gke-main.ols.blast.co.id:8000/transcribe', {
                     method: 'POST',
                     body: formData
                 });
