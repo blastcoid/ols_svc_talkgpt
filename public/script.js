@@ -10,7 +10,7 @@ let ENV;
 
 async function resetContext() {
     try {
-        const response = await fetch(`${ENV.TRANSCRIBE_ENDPOINT}/reset`);
+        const response = await fetch(`${ENV.transcribeGptEndpoint}/reset`);
         const data = await response.json();
         console.log('Reset Response:', data);
     } catch (error) {
@@ -54,7 +54,7 @@ function startRecording() {
             formData.append('audio_file', audioBlob, 'audio.wav');
 
             try {
-                const response = await fetch(`${ENV.TRANSCRIBE_ENDPOINT}/transcribe`, {
+                const response = await fetch(`${ENV.transcribeGptEndpoint}/transcribe`, {
                     method: 'POST',
                     body: formData
                 });
