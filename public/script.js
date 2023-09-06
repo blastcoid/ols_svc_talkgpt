@@ -1,5 +1,5 @@
 async function fetchConfig() {
-    const res = await fetch('http://ols-svc-talkgpt.svc.gke-main.ols.blast.co.id:3000/config');
+    const res = await fetch('https://talkgpt.dev.ols.blast.co.id/config');
     return await res.json();
 }
 
