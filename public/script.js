@@ -43,7 +43,7 @@ function startRecording() {
             formData.append('audio_file', audioBlob, 'audio.wav');
 
             try {
-                const response = await fetch('http://ols-svc-transcribegpt.svc.gke-main.ols.blast.co.id:8000/transcribe', {
+                const response = await fetch('https://transcribegpt.dev.ols.blast.co.id/transcribe', {
                     method: 'POST',
                     body: formData
                 });
