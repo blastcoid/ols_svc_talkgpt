@@ -12,8 +12,7 @@ app.get('/config', (req, res) => {
     res.json({
         positiveSpeechThreshold: process.env.POSITIVE_SPEECH_THRESHOLD,
         negativeSpeechThreshold: process.env.NEGATIVE_SPEECH_THRESHOLD,
-        TALKGPT_ENDPOINT: process.env.TALKGPT_ENDPOINT,
-        TRANSCRIBE_ENDPOINT: process.env.TRANSCRIBE_ENDPOINT,
+        TRANSCRIBEGPT_ENDPOINT: process.env.TRANSCRIBEGPT_ENDPOINT,
     });
 });
 
