@@ -1,25 +1,36 @@
 async function fetchConfig() {
-    const res = await fetch('https://talkgpt.dev.ols.blast.co.id/config');
+    const res = await fetch('/config');
     return await res.json();
 }
 
 let mediaRecorder;
 let audioChunks = [];
 let isTTSPlaying = false;
+let ENV;
+
+async function resetContext() {
+    try {
+        const response = await fetch(`${ENV.TRANSCRIBE_ENDPOINT}/reset`);
+        const data = await response.json();
+        console.log('Reset Response:', data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
 
 async function main() {
-    const config = await fetchConfig();
+    ENV = await fetchConfig();
     const myvad = await vad.MicVAD.new({
-        positiveSpeechThreshold: config.positiveSpeechThreshold,  // assign from fetched config
-        negativeSpeechThreshold: config.positiveSpeechThreshold,  // assign from fetched config
+        positiveSpeechThreshold: ENV.positiveSpeechThreshold,
+        negativeSpeechThreshold: ENV.negativeSpeechThreshold,
         onSpeechStart: () => {
-            if (!isTTSPlaying) {  // Check if TTS is not playing
+            if (!isTTSPlaying) {
                 console.log("Speech started");
                 startRecording();
             }
         },
         onSpeechEnd: (audio) => {
-            if (!isTTSPlaying) {  // Check if TTS is not playing
+            if (!isTTSPlaying) {
                 console.log("Speech ended");
                 stopRecording(audio);
             }
@@ -43,7 +54,7 @@ function startRecording() {
             formData.append('audio_file', audioBlob, 'audio.wav');
 
             try {
-                const response = await fetch('https://transcribegpt.dev.ols.blast.co.id/transcribe', {
+                const response = await fetch(`${ENV.TRANSCRIBE_ENDPOINT}/transcribe`, {
                     method: 'POST',
                     body: formData
                 });

@@ -5,15 +5,15 @@ const {TextToSpeechClient} = require('@google-cloud/text-to-speech');
 const app = express();
 const PORT = process.env.APP_PORT || 3000;
 
-// Load environment variables from .env file
-
-app.use(express.json());  // for parsing application/json
+app.use(express.json());
 app.use(express.static('public'));
 
 app.get('/config', (req, res) => {
     res.json({
         positiveSpeechThreshold: process.env.POSITIVE_SPEECH_THRESHOLD,
         negativeSpeechThreshold: process.env.NEGATIVE_SPEECH_THRESHOLD,
+        TALKGPT_ENDPOINT: process.env.TALKGPT_ENDPOINT,
+        TRANSCRIBE_ENDPOINT: process.env.TRANSCRIBE_ENDPOINT,
     });
 });
 
